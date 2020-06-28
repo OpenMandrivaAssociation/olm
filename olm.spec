@@ -47,8 +47,7 @@ sed -e "s@/build@/%{_target_platform}@g" -i python/olm_build.py
     -G Ninja
    
 %ninja_build
-..
-popd
+cd..
 
 pushd python
 %py_build
