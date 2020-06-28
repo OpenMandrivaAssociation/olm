@@ -41,13 +41,11 @@ mkdir -p %{_target_platform}
 sed -e "s@/build@/%{_target_platform}@g" -i python/olm_build.py
 
 %build
-pushd %{_target_platform}
     %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DOLM_TESTS=ON \
     ..
-popd
-%ninja_build -C %{_target_platform}
+%ninja_build -C
 
 pushd python
 %py_build
