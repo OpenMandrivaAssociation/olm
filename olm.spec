@@ -32,7 +32,7 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %description devel
 Devel Olm packages for Double Ratchet cryptographic library
 
-%description python3
+%description python
 Python 3 bindings for Olm Double Ratchet cryptographic library
 
 %prep
