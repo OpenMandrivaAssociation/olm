@@ -46,7 +46,7 @@ sed -e "s@/build@/%{_target_platform}@g" -i python/olm_build.py
     -DOLM_TESTS=OFF \
     -G Ninja
    
-%ninja_build -C
+%ninja_build
 
 pushd python
 %py_build
