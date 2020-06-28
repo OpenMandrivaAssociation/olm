@@ -1,21 +1,19 @@
 %global appname olm
 
 Name: libolm
-Version: 3.1.4
-Release: 4%{?dist}
+Version: 3.1.5
+Release: 1
 
 Summary: Double Ratchet cryptographic library
 License: ASL 2.0
 URL: https://gitlab.matrix.org/matrix-org/%{appname}
 Source0: https://gitlab.matrix.org/matrix-org/%{appname}/-/archive/%{version}/%{appname}-%{version}.tar.bz2
 
-BuildRequires: ninja-build
-BuildRequires: gcc-c++
+BuildRequires: ninja
 BuildRequires: cmake
-BuildRequires: gcc
 
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: pkgconfig(python)
+BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(cffi)
 BuildRequires: python3dist(future)
 
@@ -26,16 +24,16 @@ An implementation of the Double Ratchet cryptographic ratchet in C++.
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
-%package python3
+%package python
 Summary: Python 3 bindings for %{name}
 %{?python_provide:%python_provide python3-%{appname}}
 Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description devel
-%{summary}.
+Devel Olm packages for Double Ratchet cryptographic library
 
 %description python3
-%{summary}.
+Python 3 bindings for Olm Double Ratchet cryptographic library
 
 %prep
 %autosetup -n %{appname}-%{version} -p1
@@ -52,7 +50,7 @@ popd
 %ninja_build -C %{_target_platform}
 
 pushd python
-%py3_build
+%py_build
 popd
 
 %check
@@ -64,7 +62,7 @@ popd
 %ninja_install -C %{_target_platform}
 
 pushd python
-%py3_install
+%py_install
 popd
 
 %files
@@ -77,7 +75,7 @@ popd
 %{_libdir}/%{name}.so
 %{_libdir}/cmake/Olm
 
-%files python3
-%{python3_sitearch}/%{appname}
-%{python3_sitearch}/_%{name}.abi3.so
-%{python3_sitearch}/python_%{appname}-*.egg-info
+%files python
+%{python_sitearch}/%{appname}
+%{python_sitearch}/_%{name}.abi3.so
+%{python_sitearch}/python_%{appname}-*.egg-info
