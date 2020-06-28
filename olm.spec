@@ -48,6 +48,8 @@ sed -e "s@/build@/%{_target_platform}@g" -i python/olm_build.py
    
 %ninja_build
 
+popd
+
 pushd python
 %py_build
 popd
