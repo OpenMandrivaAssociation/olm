@@ -1,13 +1,13 @@
 %global appname olm
 
-Name: libolm
+Name: olm
 Version: 3.1.5
 Release: 1
 
 Summary: Double Ratchet cryptographic library
 License: ASL 2.0
-URL: https://gitlab.matrix.org/matrix-org/%{appname}
-Source0: https://gitlab.matrix.org/matrix-org/%{appname}/-/archive/%{version}/%{appname}-%{version}.tar.bz2
+URL: https://gitlab.matrix.org/matrix-org/%{name}
+Source0: https://gitlab.matrix.org/matrix-org/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires: ninja
 BuildRequires: cmake
