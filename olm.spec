@@ -37,11 +37,8 @@ Python 3 bindings for Olm Double Ratchet cryptographic library
 
 %prep
 %autosetup -n %{appname}-%{version} -p1
-mkdir -p %{_target_platform}
-sed -e "s@/build@/%{_target_platform}@g" -i python/olm_build.py
 
 %build
-cd olm
     %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DOLM_TESTS=OFF \
