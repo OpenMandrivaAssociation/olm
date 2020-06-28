@@ -41,7 +41,7 @@ mkdir -p %{_target_platform}
 sed -e "s@/build@/%{_target_platform}@g" -i python/olm_build.py
 
 %build
-    %cmake 
+    %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DOLM_TESTS=OFF \
     -G Ninja
