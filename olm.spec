@@ -1,4 +1,11 @@
 %global appname olm
+%define _disable_lto 1
+# For the python module - it doesn't link to libpython
+%define _disable_ld_no_undefined 1
+
+%define major %(echo %{version} |cut -d. -f1)
+%define libname %mklibname olm %{major}
+%define devname %mklibname -d olm
 
 Name: olm
 Version: 3.1.5
@@ -20,16 +27,25 @@ BuildRequires: python3dist(future)
 %description
 An implementation of the Double Ratchet cryptographic ratchet in C++.
 
-%package devel
+%package -n %{libname}
+Summary: Double Ratchet cryptographic library
+
+%description -n %{libname}
+Double Ratchet cryptographic library
+
+%package -n %{devname}
 Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: %{libname}%{?_isa} = %{EVRD}
+Provides: %{name}-devel = %{EVRD}
 
 %package python
 Summary: Python 3 bindings for %{name}
-%{?python_provide:%python_provide python3-%{appname}}
-Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: %{libname}%{?_isa} = %{?EVRD}
 
-%description devel
+%description -n %{libname}
+An implementation of the Double Ratchet cryptographic ratchet in C++.
+
+%description -n %{devname}
 Devel Olm packages for Double Ratchet cryptographic library
 
 %description python
@@ -37,44 +53,41 @@ Python 3 bindings for Olm Double Ratchet cryptographic library
 
 %prep
 %autosetup -n %{appname}-%{version} -p1
-
-%build
-    %cmake \
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DOLM_TESTS=OFF \
     -G Ninja
-   
-%ninja_build
 
+%build
+%ninja_build -C build
+
+export CFLAGS="%{optflags} -L$(pwd)/build/%{_lib}"
+export LDFLAGS="%{build_ldflags} -L$(pwd)/build/%{_lib}"
 cd python
-
-#pushd python
 %py_build
-popd
 
 %check
-pushd %{_target_platform}/tests
-    ctest --output-on-failure
-popd
+cd build
+ctest --output-on-failure
 
 %install
-%ninja_install -C %{_target_platform}
+%ninja_install -C build
 
 pushd python
 %py_install
 popd
 
-%files
+%files -n %{libname}
 %license LICENSE
 %doc *.md *.rst docs/*.md
-%{_libdir}/%{name}.so.3*
+%{_libdir}/lib%{name}.so.%{major}*
 
-%files devel
+%files -n %{devname}
 %{_includedir}/%{appname}
-%{_libdir}/%{name}.so
+%{_libdir}/lib%{name}.so
 %{_libdir}/cmake/Olm
 
 %files python
 %{python_sitearch}/%{appname}
-%{python_sitearch}/_%{name}.abi3.so
+%{python_sitearch}/_lib%{name}.abi3.so
 %{python_sitearch}/python_%{appname}-*.egg-info
