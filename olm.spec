@@ -9,7 +9,7 @@
 
 Name: olm
 Version: 3.1.5
-Release: 1
+Release: 2
 
 Summary: Double Ratchet cryptographic library
 License: ASL 2.0
