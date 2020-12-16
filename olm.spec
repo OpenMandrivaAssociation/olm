@@ -8,8 +8,8 @@
 %define devname %mklibname -d olm
 
 Name: olm
-Version: 3.1.5
-Release: 2
+Version: 3.2.1
+Release: 1
 
 Summary: Double Ratchet cryptographic library
 License: ASL 2.0
