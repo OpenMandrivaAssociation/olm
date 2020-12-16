@@ -1,24 +1,20 @@
-%global appname olm
-%define _disable_lto 1
 # For the python module - it doesn't link to libpython
 %define _disable_ld_no_undefined 1
 
 %define major %(echo %{version} |cut -d. -f1)
-%define libname %mklibname olm %{major}
-%define devname %mklibname -d olm
-
-Name: olm
-Version: 3.2.1
-Release: 1
+%define libname %mklibname %{name} %{major}
+%define devname %mklibname -d %{name}
 
 Summary: Double Ratchet cryptographic library
+Name: olm
+Version: 3.2.2
+Release: 1
 License: ASL 2.0
+Group: System/Libraries
 URL: https://gitlab.matrix.org/matrix-org/%{name}
 Source0: https://gitlab.matrix.org/matrix-org/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
-
 BuildRequires: ninja
 BuildRequires: cmake
-
 BuildRequires: pkgconfig(python)
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(cffi)
@@ -29,30 +25,33 @@ An implementation of the Double Ratchet cryptographic ratchet in C++.
 
 %package -n %{libname}
 Summary: Double Ratchet cryptographic library
+Group: System/Libraries
+
+%description -n %{libname}
+An implementation of the Double Ratchet cryptographic ratchet in C++.
 
 %description -n %{libname}
 Double Ratchet cryptographic library
 
 %package -n %{devname}
 Summary: Development files for %{name}
+Group: Development/C++
 Requires: %{libname}%{?_isa} = %{EVRD}
 Provides: %{name}-devel = %{EVRD}
 
-%package python
-Summary: Python 3 bindings for %{name}
-Requires: %{libname}%{?_isa} = %{?EVRD}
-
-%description -n %{libname}
-An implementation of the Double Ratchet cryptographic ratchet in C++.
-
 %description -n %{devname}
 Devel Olm packages for Double Ratchet cryptographic library
+
+%package python
+Summary: Python 3 bindings for %{name}
+Group: Development/Python
+Requires: %{libname}%{?_isa} = %{?EVRD}
 
 %description python
 Python 3 bindings for Olm Double Ratchet cryptographic library
 
 %prep
-%autosetup -n %{appname}-%{version} -p1
+%autosetup -p1
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DOLM_TESTS=OFF \
@@ -73,9 +72,9 @@ ctest --output-on-failure
 %install
 %ninja_install -C build
 
-pushd python
+cd python
 %py_install
-popd
+cd ..
 
 %files -n %{libname}
 %license LICENSE
@@ -83,11 +82,12 @@ popd
 %{_libdir}/lib%{name}.so.%{major}*
 
 %files -n %{devname}
-%{_includedir}/%{appname}
+%{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/cmake/Olm
+%{_libdir}/pkgconfig/olm.pc
 
 %files python
-%{python_sitearch}/%{appname}
+%{python_sitearch}/%{name}
 %{python_sitearch}/_lib%{name}.abi3.so
-%{python_sitearch}/python_%{appname}-*.egg-info
+%{python_sitearch}/python_%{name}-*.egg-info
