@@ -7,7 +7,7 @@
 
 Summary: Double Ratchet cryptographic library
 Name: olm
-Version: 3.2.2
+Version: 3.2.5
 Release: 1
 License: ASL 2.0
 Group: System/Libraries
