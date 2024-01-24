@@ -87,4 +87,4 @@ cd ..
 %files python
 %{python_sitearch}/%{name}
 %{python_sitearch}/_lib%{name}.abi3.so
-#{python_sitearch}/python_%{name}-*.egg-info
+%{python_sitearch}/python_olm-*.dist-info
