@@ -30,9 +30,6 @@ Group: System/Libraries
 %description -n %{libname}
 An implementation of the Double Ratchet cryptographic ratchet in C++.
 
-%description -n %{libname}
-Double Ratchet cryptographic library
-
 %package -n %{devname}
 Summary: Development files for %{name}
 Group: Development/C++
@@ -90,4 +87,4 @@ cd ..
 %files python
 %{python_sitearch}/%{name}
 %{python_sitearch}/_lib%{name}.abi3.so
-%{python_sitearch}/python_%{name}-*.egg-info
+#{python_sitearch}/python_%{name}-*.egg-info
