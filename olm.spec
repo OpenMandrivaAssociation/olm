@@ -8,7 +8,7 @@
 Summary: Double Ratchet cryptographic library
 Name: olm
 Version: 3.2.16
-Release: 1
+Release: 2
 License: ASL 2.0
 Group: System/Libraries
 URL: https://gitlab.matrix.org/matrix-org/%{name}
