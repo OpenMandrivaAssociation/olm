@@ -20,6 +20,7 @@ Patch1: 0002-fix-cmake-cmp0148.patch
 
 BuildRequires: ninja
 BuildRequires: cmake
+BuildRequires: make
 BuildRequires: pkgconfig(python3)
 BuildRequires: python%{pyver}dist(cffi)
 BuildRequires: python%{pyver}dist(future)
