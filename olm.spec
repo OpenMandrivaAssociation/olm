@@ -8,17 +8,22 @@
 Summary: Double Ratchet cryptographic library
 Name: olm
 Version: 3.2.16
-Release: 3
+Release: 2
 License: ASL 2.0
 Group: System/Libraries
 URL: https://gitlab.matrix.org/matrix-org/%{name}
 Source0: https://gitlab.matrix.org/matrix-org/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+# Based on https://github.com/Nheko-Reborn/nheko/blob/master/third_party/olm-patches/0001-fix-list-const-ptr.patch
+Patch0: 0001-fix-list-const-ptr.patch
+# Based on https://github.com/Nheko-Reborn/nheko/blob/master/third_party/olm-patches/0002-fix-cmake-cmp0148.patch
+Patch1: 0002-fix-cmake-cmp0148.patch
+
 BuildRequires: ninja
 BuildRequires: cmake
-BuildRequires: pkgconfig(python)
-BuildRequires: python3dist(setuptools)
-BuildRequires: python3dist(cffi)
-BuildRequires: python3dist(future)
+BuildRequires: pkgconfig(python3)
+BuildRequires: python%{pyver}dist(setuptools)
+BuildRequires: python%{pyver}dist(cffi)
+BuildRequires: python%{pyver}dist(future)
 
 %description
 An implementation of the Double Ratchet cryptographic ratchet in C++.

@@ -1,0 +1,12 @@
+diff -urN olm-3.2.16/include/olm/list.hh olm-3.2.16-b/include/olm/list.hh
+--- olm-3.2.16/include/olm/list.hh	2023-11-23 17:38:51.000000000 +0000
++++ olm-3.2.16-b/include/olm/list.hh	2026-02-15 00:04:59.966241856 +0000
+@@ -99,7 +99,7 @@
+             return *this;
+         }
+         T * this_pos = _data;
+-        T * const other_pos = other._data;
++        T const * other_pos = other._data;
+         while (other_pos != other._end) {
+             *this_pos = *other;
+             ++this_pos;
