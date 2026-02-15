@@ -21,9 +21,11 @@ Patch1: 0002-fix-cmake-cmp0148.patch
 BuildRequires: ninja
 BuildRequires: cmake
 BuildRequires: pkgconfig(python3)
-BuildRequires: python%{pyver}dist(setuptools)
 BuildRequires: python%{pyver}dist(cffi)
 BuildRequires: python%{pyver}dist(future)
+BuildRequires: python%{pyver}dist(pip)
+BuildRequires: python%{pyver}dist(setuptools)
+BuildRequires: python%{pyver}dist(wheel)
 
 %description
 An implementation of the Double Ratchet cryptographic ratchet in C++.
